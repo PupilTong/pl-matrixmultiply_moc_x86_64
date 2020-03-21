@@ -35,5 +35,10 @@ WORKDIR $APPROOT
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O Miniconda.sh && \
+    /bin/bash Miniconda.sh -b -p /opt/conda && \
+    rm Miniconda.sh
+RUN conda install cudatoolkit=9.0
+
 CMD ["matmultiply.py", "--help"]
 
