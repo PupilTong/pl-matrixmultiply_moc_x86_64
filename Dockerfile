@@ -22,43 +22,16 @@
 #
 
 
-
-FROM fnndsc/ubuntu-python3:latest
-MAINTAINER fnndsc "dev@babymri.org"
-
-ENV BAZEL_VERSION 0.21.0
-WORKDIR /
-RUN mkdir /bazel && \
-    cd /bazel && \
-    wget https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
-    # curl -fSsL -o /bazel/LICENSE.txt https://raw.githubusercontent.com/bazelbuild/bazel/master/LICENSE.txt && \
-    chmod +x bazel-*.sh && \
-    ./bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
-    cd / && \
-    rm -f /bazel/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh
-
-RUN echo $(g++ --version)
-RUN echo $(bazel version)
-
-### TENSORFLOW 
-ENV TENSORFLOW_VERSION r1.13
-RUN git clone https://github.com/tensorflow/tensorflow.git && \
-    cd tensorflow && \
-    git checkout ${TENSORFLOW_VERSION}
-
-ENV PYTHON_LIB_PATH /usr/local/lib/python2.7/dist-packages
-ENV PYTHONPATH /tensorflow/lib
-ENV PYTHON_ARG /tensorflow/lib
-
+FROM nvidia/cuda:latest
+LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>"
 ENV APPROOT="/usr/src/matmultiply"
 COPY ["matmultiply", "${APPROOT}"]
 COPY ["requirements.txt", "${APPROOT}"]
-
 WORKDIR $APPROOT
-
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-
-
-CMD ["matmultiply.py", "--help"]
+RUN apt update
+RUN apt install -y  python3
+RUN apt install -y python3-pip
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
+CMD ["python3 matmultiply.py", "--help"]
 
