@@ -34,7 +34,7 @@ WORKDIR $APPROOT
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-UN apt-get update && apt-get install -y build-essential
+RUN apt-get update && apt-get install -y build-essential
 RUN apt-get --purge remove -y nvidia*
 
 ADD ./Downloads/nvidia_installers /tmp/nvidia                             > Get the install files you used to install CUDA and the NVIDIA drivers on your host
