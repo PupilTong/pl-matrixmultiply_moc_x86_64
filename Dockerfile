@@ -32,4 +32,7 @@ COPY ["requirements.txt", "${APPROOT}"]
 
 WORKDIR $APPROOT
 
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
 CMD ["matmultiply.py", "--help"]
