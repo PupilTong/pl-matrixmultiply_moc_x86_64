@@ -36,3 +36,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 CMD ["matmultiply.py", "--help"]
+
