@@ -35,7 +35,7 @@ WORKDIR $APPROOT
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-RUN export NUMBAPRO_CUDA_DRIVER=/usr/lib64/libcuda.so
-RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64         > Add CUDA library into your PATH
+RUN export NUMBAPRO_CUDA_DRIVER=/usr/lib/x86_64-linux-gnu/libcuda.so
+RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/cuda/lib64         > Add CUDA library into your PATH
 
 CMD ["matmultiply.py", "--help"]
