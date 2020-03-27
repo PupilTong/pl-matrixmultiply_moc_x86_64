@@ -102,6 +102,7 @@ class Matmultiply(ChrisApp):
         """
         Define the code to be run by this plugin app.
         """
+        print(Gstr_title)
         obj = MatCal.MatMulBench()
         print(obj.Run())
 
