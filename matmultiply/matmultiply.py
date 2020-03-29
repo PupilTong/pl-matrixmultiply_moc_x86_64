@@ -113,14 +113,16 @@ class Matmultiply(ChrisApp):
         Define the code to be run by this plugin app.
         """
         print(Gstr_title)
-        
-        self.clist = self.generateCOElist(options.c)
 
+        self.clist = self.generateCOElist(options.c)
+        print("clist:" + str(self.clist))######################
         if len(self.clist) != 0:
             for cnum in self.clist:
+                print("cur cnum is " + str(cnum)) ######################
                 c = int(cnum)
                 obj = MatCal.MatMulBench(c)
                 ms, st, ft, et = obj.Run()
+                print("cur list of pars:" + str([ms,st,ft,et])) ######################
                 parse = [{'Matrix_Size': ms, 'Start_Time': st, 'Finish_Time': ft, 'Elapse_Time': et}]
                 self.createOrUpdate(parse,options.outputdir)
                 print(parse)
