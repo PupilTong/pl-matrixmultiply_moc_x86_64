@@ -113,12 +113,9 @@ class Matmultiply(ChrisApp):
         Define the code to be run by this plugin app.
         """
         print(Gstr_title)
-        self.clist = []
-        try:
-            self.clist = self.generateCOElist(options.c)
-        except:
-            print("Unexpected error handling your COE parameters, try something else again!")
-            return
+        
+        self.clist = self.generateCOElist(options.c)
+
         if len(self.clist) != 0:
             for cnum in self.clist:
                 c = int(cnum)
@@ -127,8 +124,6 @@ class Matmultiply(ChrisApp):
                 parse = [{'Matrix_Size': ms, 'Start_Time': st, 'Finish_Time': ft, 'Elapse_Time': et}]
                 self.createOrUpdate(parse,options.outputdir)
                 print(parse)
-
-
 
     def createOrUpdate(self,parse,outdir):
         headers = ["Matrix_Size", "Start_Time", "Finish_Time", "Elapse_Time"]
