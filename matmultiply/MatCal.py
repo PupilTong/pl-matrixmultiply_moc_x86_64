@@ -48,8 +48,8 @@ class MatMulBench:
     #TPB One thread block size
     #COE TPBxCOE = matrix size(Ract matrix)
     #DUP will Run DUP times
-    def __init__(self):
-        self.COE = 32
+    def __init__(self,cnum):
+        self.COE = cnum
         #for key, value in kwargs.items():
         #    if key == 'COEnumber': self.COE = value
         #    else: self.COE = 32
@@ -57,7 +57,7 @@ class MatMulBench:
 
     # Controls threads per block and shared memory usage.
     # The computation will be done on blocks of TPBxTPB elements.
-    def Run(self) -> float:
+    def Run(self):
         COE = self.COE
         start_time = time.time()
         # The data array
@@ -77,6 +77,17 @@ class MatMulBench:
         # Start the kernel
         fast_matmul[blockspergrid, threadsperblock](A_global_mem, B_global_mem, C_global_mem)
         res = C_global_mem.copy_to_host()
-        print(time.time() - start_time)
-        return time.time() - start_time
+
+
+        # Generate Result String
+        Res = ""
+
+        ## what i need to return:
+        ## Matrix size, start time, finish time, elapse time
+        ms = math.pow(COE * TPB, 2)
+        st = start_time
+        ft = time.time()
+        et = ft - st
+        return ms, st, ft, et
+
 
