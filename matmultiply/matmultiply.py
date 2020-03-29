@@ -130,7 +130,9 @@ class Matmultiply(ChrisApp):
     def createOrUpdate(self,parse,outdir):
         headers = ["Matrix_Size", "Start_Time", "Finish_Time", "Elapse_Time"]
         # open an csv file at current dictionary with name database.csv
+        print(os.path.abspath('.'))
         filepath = os.path.abspath('.') + '/' + outdir + '/MultiplyRecord.csv'
+        print(filepath)
         if (os.path.exists(filepath)):
             # if the file exist add the value of the dictionary,else will build a new file with the header
             with open(filepath, 'a+') as f:
