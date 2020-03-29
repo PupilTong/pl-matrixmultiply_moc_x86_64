@@ -102,7 +102,7 @@ class Matmultiply(ChrisApp):
         Use self.add_argument to specify a new app argument.
         """
         self.add_argument('-c','--coe',
-                          dest      =   'coe-number-range',
+                          dest      =   'coenum',
                           type      =   str,
                           optional  =   True,
                           help      =   'assign coe range, default 32, assign by startNumber : stepLength : endnumber',
@@ -114,7 +114,7 @@ class Matmultiply(ChrisApp):
         """
         print(Gstr_title)
 
-        self.clist = self.generateCOElist(options.coe)
+        self.clist = self.generateCOElist(options.coenum)
         print("clist:" + str(self.clist))######################
         if len(self.clist) != 0:
             for cnum in self.clist:
