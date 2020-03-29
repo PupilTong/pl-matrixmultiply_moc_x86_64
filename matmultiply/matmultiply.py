@@ -124,15 +124,28 @@ class Matmultiply(ChrisApp):
                 ms, st, ft, et = obj.Run()
                 print("cur list of pars:" + str([ms,st,ft,et])) ######################
                 parse = [{'Matrix_Size': ms, 'Start_Time': st, 'Finish_Time': ft, 'Elapse_Time': et}]
-                self.createOrUpdate(parse,options.outputdir)
+                self.createOrUpdate(parse, options.inputdir, options.outputdir)
                 print(parse)
 
-    def createOrUpdate(self,parse,outdir):
+    def createOrUpdate(self, parse, indir, outdir):
         headers = ["Matrix_Size", "Start_Time", "Finish_Time", "Elapse_Time"]
         # open an csv file at current dictionary with name database.csv
-        print(os.path.abspath('.'))
-        filepath = os.path.abspath('.') + '/' + outdir + '/MultiplyRecord.csv'
-        print(filepath)
+
+        # print("indir: " + os.getcwd() + "/" + indir)
+        # print("outdir: " + os.getcwd() + "/" + outdir)
+        # print("current path: " + os.getcwd())
+#
+        # # os.chdir(os.getcwd() + "/" + outdir)
+        # print("cur dir : " + os.getcwd())
+
+        # print("indir is :" + os.path.abspath(indir))
+        # childdir = os.path.abspath(indir)
+        # os.chdir(outdir)
+        # print("chdir finished, cur path:" + os.getcwd())
+
+        filepath = outdir  + '/MultiplyRecord.csv'
+
+        print("filepath:" + filepath)
         if (os.path.exists(filepath)):
             # if the file exist add the value of the dictionary,else will build a new file with the header
             with open(filepath, 'a+') as f:
@@ -141,6 +154,7 @@ class Matmultiply(ChrisApp):
                 for item in parse:
                     f_csv.writerow(item)
         else:
+            # %s/timestamp.json' % options.outputdir,
             with open(filepath, 'a+') as f:
                 f_csv = csv.DictWriter(f, headers)
                 # write headers to database.csv
