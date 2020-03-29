@@ -101,7 +101,7 @@ class Matmultiply(ChrisApp):
         Define the CLI arguments accepted by this plugin app.
         Use self.add_argument to specify a new app argument.
         """
-        self.add_argument('-c',
+        self.add_argument('-c','--coe',
                           dest      =   'coe-number-range',
                           type      =   str,
                           optional  =   True,
@@ -114,7 +114,7 @@ class Matmultiply(ChrisApp):
         """
         print(Gstr_title)
 
-        self.clist = self.generateCOElist(options.c)
+        self.clist = self.generateCOElist(options.coe)
         print("clist:" + str(self.clist))######################
         if len(self.clist) != 0:
             for cnum in self.clist:
