@@ -92,20 +92,32 @@ Now, prefix all calls with
 .. code:: bash
 
     docker run --rm -v $(pwd)/out:/outgoing                             \
-            fnndsc/pl-matmultiply matmultiply.py                        \
+            fnndsc/pl-matmultiply_moc_x86_64 matmultiply.py                        \
 
 Thus, getting inline help is:
 
 .. code:: bash
 
-    mkdir in out && chmod 777 out
-    docker run --rm -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
-            fnndsc/pl-matmultiply matmultiply.py                        \
-            --man                                                       \
-            /incoming /outgoing
-
+    mkdir in out && chmod 777 out                                       \
+    docker run --runtime=nvidia                                         \   
+                -e NVIDIA_VISIBLE_DEVICES=1                             \
+                -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing          \
+                fnndsc/pl-matrixmultiply                                \
+                matmultiply.py                                          \
+                -c 32,32,128                                            \
+                /incoming /outgoing   
 Examples
 --------
+.. code:: bash
+
+    docker run --runtime=nvidia                                         \   
+                -e NVIDIA_VISIBLE_DEVICES=1                             \
+                -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing          \
+                fnndsc/pl-matrixmultiply_moc_x86_64                     \
+                matmultiply.py                                          \
+                -c 32,32,128                                            \
+                /incoming /outgoing                 
+
 
 
 
